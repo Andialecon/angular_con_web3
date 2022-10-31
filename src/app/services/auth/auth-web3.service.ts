@@ -48,4 +48,24 @@ export class AuthWeb3Service {
     })
   }
 
+  async handledAccountsChanged(){
+    const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccount'});
+
+    this.addressUser.next(accounts[0]);
+    this.authBackend();
+
+    window.ethereum.on('accountsChanged', (accounts:string[]) => {
+      this.addressUser.next(accounts[0]);
+      this.authBackend();
+    };
+  }
+
+  async authBackend(){
+    this.loginUser.next(true);
+  }
+
+  logout(){
+    this.loginUser.next(false);
+  }
+
 }
