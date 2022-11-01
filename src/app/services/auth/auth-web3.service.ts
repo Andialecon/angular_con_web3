@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import Web3 from 'web3';
-import swal from 'sweetalert';
+import Swal from 'sweetalert';
 
 declare let window: any;
 
@@ -21,7 +21,7 @@ export class AuthWeb3Service {
     if(typeof window.ethereum !== 'undefined'){
       this.web3 = new Web3(window.ethereum);
     }else{
-      swal("Oops!", "Something went wrong!", "error");
+      Swal("No se encontró una billetera", "Para interacturar con la aplicación necesitas tener la Billetera Metamask instalada en tu navegador", "error");
     }
   }
 
@@ -30,18 +30,17 @@ export class AuthWeb3Service {
   }
 
   async handleIdChainChanged(){
-    const chainId: string = await window.ethereum.request({ method: 'eth_chainId'});
-
-    if(this.chainIds.includes(chainId)){
-      this.handleIdChainChanged();
-    }else {
-      swal("Oops!", "Something went wrong!", "error");
+    // debugger;
+    try {
+      const chainId: string = await window.ethereum.request({ method: 'eth_chainId'});
+    } catch (error) {
+      Swal("No se encontró una Billetera", "Instala Metamask", "error");
     }
 
     window.ethereum.on('chainChanged', (res: string) => {
       if(!this.chainIds.includes(res)){
         this.logout();
-        swal("Oops!", "Seleciona la red principal de Etherreum! (Mainet)", "error");
+        Swal("Oops!", "Seleciona la red principal de Etherreum! (Mainet)", "error");
       }else{
         this.authBackend();
       }
@@ -57,7 +56,7 @@ export class AuthWeb3Service {
     window.ethereum.on('accountsChanged', (accounts:string[]) => {
       this.addressUser.next(accounts[0]);
       this.authBackend();
-    };
+    })
   }
 
   async authBackend(){
