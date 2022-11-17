@@ -13,7 +13,7 @@ export class AuthWeb3Service {
   web3: any = null;
   get web3Instance() { return this.web3; }
 
-  chainIds: string[] = ['0x1'];
+  chainId: string = '0x1';
   addressUser: any = new BehaviorSubject<string>('');
   loginUser: any = new BehaviorSubject<boolean>(false);
 
@@ -25,44 +25,54 @@ export class AuthWeb3Service {
     }
   }
 
-  connect(){
-    this.handleIdChainChanged();
+  connect(){    
+    this.handleIdChainDetected();
   }
-
-  async handleIdChainChanged(){
-    // debugger;
-    try {
-      const chainId: string = await window.ethereum.request({ method: 'eth_chainId'});
-    } catch (error) {
-      Swal("No se encontró una Billetera", "Instala Metamask", "error");
+  
+  async handleIdChainDetected(){
+    const currentChainId: string = await window.ethereum.request({ method: 'eth_chainId'});
+    
+    if(this.chainId==currentChainId){
+      this.conectAccount();
+    }else{
+      Swal("Error de Red!", "Seleciona la red principal de Etherreum! (Mainet)", "error");
     }
-
+    
     window.ethereum.on('chainChanged', (res: string) => {
-      if(!this.chainIds.includes(res)){
+      if(this.chainId!=res){
         this.logout();
         Swal("Oops!", "Seleciona la red principal de Etherreum! (Mainet)", "error");
       }else{
-        this.authBackend();
+        if(this.addressUser.getValue()===''){
+          this.conectAccount();
+        }
       }
     })
+
   }
-
-  async handledAccountsChanged(){
-    const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccount'});
-
-    this.addressUser.next(accounts[0]);
-    this.authBackend();
-
-    window.ethereum.on('accountsChanged', (accounts:string[]) => {
+  
+  async conectAccount(){
+    try {
+      const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccounts'});
+      
       this.addressUser.next(accounts[0]);
-      this.authBackend();
-    })
+      this.authBackend(this.addressUser);
+      
+      window.ethereum.on('accountsChanged', (accounts:string[]) => {
+        this.logout();
+        window.location.reload();
+      });
+      
+    }
+    catch(err:any) {
+      Swal("Oops!", `${err.message}`, "error");
+    }
   }
 
-  async authBackend(){
+  async authBackend(addressUser:string){
     this.loginUser.next(true);
   }
-
+  
   logout(){
     this.loginUser.next(false);
   }
