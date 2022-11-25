@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import axios from 'axios';
+const {REACT_APP_SERVER} = environment;
 
 import Web3 from 'web3';
 import Swal from 'sweetalert';
+import { environment } from '../../../environments/environment';
 
 declare let window: any;
 
@@ -69,7 +72,30 @@ export class AuthWeb3Service {
     }
   }
 
-  async authBackend(addressUser:string){
+  
+// validamos en el back que exista un usuario para esta address, de lo contrario se crea
+  async authBackend(pubAd:string){
+    try {
+      console.log('pubAd vUs: ', pubAd)
+      const user = await axios.get(`${REACT_APP_SERVER}/users/${pubAd}`);
+      console.log('user1: ', user.data)
+      if (!user.data) {
+  
+        await axios.post(`${REACT_APP_SERVER}/users`, {
+          address: pubAd,
+        });
+  
+       const userCreate = await axios.get(`${REACT_APP_SERVER}/users/${pubAd}`);
+        console.log('user2: ', userCreate.data)
+       return userCreate.data
+  
+      };
+      
+      return user.data;
+    } catch (error) {
+      console.log("userVer: ", error);
+    }
+    
     this.loginUser.next(true);
   }
   
