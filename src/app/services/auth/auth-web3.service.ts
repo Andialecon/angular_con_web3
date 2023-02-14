@@ -32,6 +32,8 @@ export class AuthWeb3Service {
     this.handleIdChainDetected();
   }
   
+
+  // validamos que metamask esté en la red correcta
   async handleIdChainDetected(){
     const currentChainId: string = await window.ethereum.request({ method: 'eth_chainId'});
     
@@ -54,6 +56,7 @@ export class AuthWeb3Service {
 
   }
   
+  // se obtienen las cuentas de metamask 
   async conectAccount(){
     try {
       const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccounts'});
