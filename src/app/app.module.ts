@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { AngularPageComponent } from './components/angular-page/angular-page.component';
 import { SharedModule } from '../app/components/shared/shared.module';
@@ -13,7 +14,8 @@ import { SharedModule } from '../app/components/shared/shared.module';
   ],
   imports: [
     BrowserModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

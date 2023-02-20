@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  REACT_APP_SERVER:"http://localhost:8080/api"
+  SERVER_RUT:"http://localhost:8081/api"
 };
 
 /*

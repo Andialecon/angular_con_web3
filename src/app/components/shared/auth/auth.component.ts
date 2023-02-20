@@ -23,6 +23,7 @@ export class AuthComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
     this.authWeb3Service.loginUser.subscribe((res:boolean)=>{
       this.loginUser=res;
       (!this.loginUser)? this.addressUserView = false : this.addressUserView = true;
@@ -35,5 +36,4 @@ export class AuthComponent implements OnInit {
     });
 
   }
-
 }
