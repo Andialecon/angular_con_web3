@@ -9,7 +9,7 @@ const { SERVER_RUT } = environment;
 import Web3 from 'web3';
 import Swal from 'sweetalert';
 import { User } from 'src/app/interfaces/Users';
-import { RestAuth } from 'src/app/interfaces/resAuht';
+import { RestAuth } from '../../interfaces/ResAuht';
  
 
 
@@ -161,16 +161,15 @@ export class AuthWeb3Service {
         signature
       }
   
-      const res = await this.http.post<RestAuth>(`${SERVER_RUT}/login`, body).subscribe(res => {
-        if (res) {
-          console.log(res)
-          localStorage.setItem("token", res.token);
-          localStorage.setItem("user", res.user);
-          localStorage.setItem("role", res.role);
-          this.loginUser.next(true);
-        }
-      })
+      const res = await this.http.post<RestAuth>(`${SERVER_RUT}/login`, body).toPromise();
       
+      if (res) {
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user", res.user);
+        localStorage.setItem("role", res.role);
+        this.loginUser.next(true);
+      }
+    
     } catch (error) {
       
     }
