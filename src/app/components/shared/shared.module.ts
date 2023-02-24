@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth/auth.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoaderComponent } from './loader/loader.component';
+import { PrimeNgModule } from './prime-ng/prime-ng.module';
 
 
 
@@ -14,11 +15,13 @@ import { LoaderComponent } from './loader/loader.component';
     LoaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    PrimeNgModule
   ],
   exports: [
     NavbarComponent,
-    LoaderComponent
+    LoaderComponent,
+    PrimeNgModule
   ]
 })
 export class SharedModule { }

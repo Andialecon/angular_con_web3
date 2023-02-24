@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LoadingService } from './services/loader.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
   loading:boolean = false;
+
+  constructor(private loadingService:LoadingService){
+  }
+
+  ngOnInit(): void {
+
+    this.loadingService.state.subscribe((res:boolean)=>{
+      this.loading=res;
+    });
+    
+  }
+  
 }

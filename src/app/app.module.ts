@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { AngularPageComponent } from './components/angular-page/angular-page.component';
 import { SharedModule } from '../app/components/shared/shared.module';
-import { PrimeNgModule } from './prime-ng/prime-ng.module';
+import { PrimeNgModule } from './components/shared/prime-ng/prime-ng.module';
 
 
 @NgModule({
@@ -16,8 +16,7 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
   imports: [
     BrowserModule,
     SharedModule,
-    HttpClientModule,
-    PrimeNgModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

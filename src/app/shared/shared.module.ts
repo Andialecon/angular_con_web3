@@ -1,4 +1,4 @@
-import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+import { PrimeNgModule } from '../components/shared/prime-ng/prime-ng.module';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

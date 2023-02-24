@@ -10,6 +10,7 @@ import Web3 from 'web3';
 import Swal from 'sweetalert';
 import { User } from 'src/app/interfaces/Users';
 import { RestAuth } from '../../interfaces/ResAuht';
+import { LoadingService } from '../loader.service';
  
 
 
@@ -26,7 +27,7 @@ export class AuthWeb3Service {
   addressUser: any = new BehaviorSubject<string>('');
   loginUser: any = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly http: HttpClient, private loadingService:LoadingService) {
     if (typeof window.ethereum !== 'undefined') {
       this.web3 = new Web3(window.ethereum);
     } else {
@@ -94,7 +95,7 @@ export class AuthWeb3Service {
   // se valida en el back que exista un usuario para esta address, de lo contrario se crea
   async authBackend(pubAd: string) {
     try {
-
+      this.loadingService.changeState(true);
       // ver si el usuario ya existe
       this.http.get<any>(`${SERVER_RUT}/users/${pubAd}`).subscribe(user => {
 
@@ -129,7 +130,7 @@ export class AuthWeb3Service {
     } catch (error: any) {
       Swal("Oops!", `${error.message}`, "error");
     }
-
+    
   }
 
   // Se solicita que el usuario firme con su llave privada usando metamask
@@ -167,11 +168,12 @@ export class AuthWeb3Service {
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", res.user);
         localStorage.setItem("role", res.role);
+        this.loadingService.changeState(false);
         this.loginUser.next(true);
       }
     
-    } catch (error) {
-      
+    } catch (error:any) {
+      Swal("Oops!", `${error.message}`, "error");
     }
 
 
