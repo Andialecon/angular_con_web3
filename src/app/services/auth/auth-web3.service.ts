@@ -51,11 +51,13 @@ export class AuthWeb3Service {
   // se valida que metamask esté en la red correcta
   async handleIdChainDetected() {
 
+    this.loadingService.changeState(true);
     const currentChainId: string = await window.ethereum.request({ method: 'eth_chainId' });
 
     if (this.chainId == currentChainId) {
       this.conectAccount();
     } else {
+      this.loadingService.changeState(false);
       Swal("Error de Red!", "Seleciona la red principal de Etherreum! (Mainet)", "error");
     }
 
@@ -75,29 +77,32 @@ export class AuthWeb3Service {
   // se obtienen las cuentas de metamask 
   async conectAccount() {
     try {
-      const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-      this.addressUser.next(accounts[0]);
-      this.authBackend(accounts[0]);
+      this.loadingService.changeState(true);
+      const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if(accounts){
+        this.addressUser.next(accounts[0]);
+        this.authBackend(accounts[0]);
+      }
 
       window.ethereum.on('accountsChanged', (accounts: string[]) => {
         this.logout();
+        this.loadingService.changeState(false);
         window.location.reload();
       });
 
     }
     catch (err: any) {
+      this.loadingService.changeState(false);
       Swal("Oops!", `${err.message}`, "error");
     }
   }
 
-
   // se valida en el back que exista un usuario para esta address, de lo contrario se crea
   async authBackend(pubAd: string) {
     try {
-      this.loadingService.changeState(true);
       // ver si el usuario ya existe
-      this.http.get<any>(`${SERVER_RUT}/users/${pubAd}`).subscribe(user => {
+      await this.http.get<any>(`${SERVER_RUT}/users/${pubAd}`).subscribe(async user => {
 
         if (!user) {
 
@@ -106,7 +111,7 @@ export class AuthWeb3Service {
             role: 'player'
           };
 
-          this.http.post<User>(`${SERVER_RUT}/users`, body).subscribe(res => {
+          await this.http.post<User>(`${SERVER_RUT}/users`, body).subscribe(res => {
             if (res) {
               
               const user = {
@@ -118,16 +123,20 @@ export class AuthWeb3Service {
                 activo : res.activo,
                 rewards: res.rewards,  
               };
-              this.firmarConMetamask(user)
+
+              this.firmarConMetamask(user);
               
             }
-          })
-        };
-        this.firmarConMetamask(user)
+          });
+
+        }else{
+          this.firmarConMetamask(user);
+        }
         
       })
 
     } catch (error: any) {
+      this.loadingService.changeState(false);
       Swal("Oops!", `${error.message}`, "error");
     }
     
@@ -136,21 +145,35 @@ export class AuthWeb3Service {
   // Se solicita que el usuario firme con su llave privada usando metamask
   async firmarConMetamask(user:any){
     try {
+
       const signature = await handleSignature(user, window.ethereum);
 
       if (signature){
 
         this.getToken(user.address, signature);
   
+      }else{
+
+        this.loadingService.changeState(false);
+        Swal({
+          title: "Authentication Error",
+          text: "No fue posible verficar su firma",
+          icon: "warning",
+          dangerMode: true,
+        });
+
       }
 
-    } catch (error) {
+    } catch (error:any) {
+
+      this.loadingService.changeState(false);
       Swal({
-        title: "Error de autenticación",
-        text: "No fue posible verficar su firma",
+        title: "Authentication Error",
+        text: error.message,
         icon: "warning",
         dangerMode: true,
       });
+
     }
   }
 
@@ -165,17 +188,24 @@ export class AuthWeb3Service {
       const res = await this.http.post<RestAuth>(`${SERVER_RUT}/login`, body).toPromise();
       
       if (res) {
+
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", res.user);
         localStorage.setItem("role", res.role);
         this.loadingService.changeState(false);
         this.loginUser.next(true);
+
+      }else{
+        this.loadingService.changeState(false);
+        Swal("Oops!", `Could not log in, please try again later`, "error");
       }
     
     } catch (error:any) {
-      Swal("Oops!", `${error.message}`, "error");
-    }
 
+      this.loadingService.changeState(false);
+      Swal("Oops!", `${error.message}`, "error");
+
+    }
 
   }
 
