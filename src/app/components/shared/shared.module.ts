@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
+import { MenuComponent } from './menu/menu.component';
 
 
 
@@ -12,7 +13,8 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
   declarations: [
     AuthComponent,
     NavbarComponent,
-    LoaderComponent
+    LoaderComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
   exports: [
     NavbarComponent,
     LoaderComponent,
-    PrimeNgModule
+    PrimeNgModule,
+    MenuComponent
   ]
 })
 export class SharedModule { }

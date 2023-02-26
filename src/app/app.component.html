@@ -2,18 +2,8 @@
 <app-loader *ngIf="loading"></app-loader>
 
 <div id="content-app" *ngIf="!loading">
-    <app-navbar></app-navbar>
 
-    <div class="row" style="display: flex;justify-content: center;width: 100%;">
-        <div class="col-md-8">
-            <img class="img-fluid" src="../assets/images/portada.png" alt="">
-        </div>
-    </div>
-
-    <div class="d-grid gap-2 col-2 mx-auto" style="position: absolute; left: 42%;top: 92%;">
-
-        <button pButton type="button" label="Click"></button>
-
-    </div>
+    <app-login></app-login>
 
 </div>
+<!-- <app-menu></app-menu> -->

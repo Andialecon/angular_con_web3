@@ -5,16 +5,14 @@ import { handleSignature } from './validate';
 import { environment } from '../../../environments/environment';
 const { SERVER_RUT } = environment;
 
-
 import Web3 from 'web3';
 import Swal from 'sweetalert';
 import { User } from 'src/app/interfaces/Users';
 import { RestAuth } from '../../interfaces/ResAuht';
 import { LoadingService } from '../loader.service';
  
-
-
 declare let window: any;
+
 
 @Injectable({
   providedIn: 'root'
@@ -188,7 +186,7 @@ export class AuthWeb3Service {
       const res = await this.http.post<RestAuth>(`${SERVER_RUT}/login`, body).toPromise();
       
       if (res) {
-
+        
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", res.user);
         localStorage.setItem("role", res.role);

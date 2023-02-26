@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingService } from './services/loader.service';
-
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html'
 })
-export class AppComponent {
-  
+export class LoginComponent implements OnInit {
+
   loading:boolean = false;
 
   constructor(private loadingService:LoadingService){
@@ -21,5 +19,8 @@ export class AppComponent {
     });
     
   }
-  
+
+  copy(){
+    
+  }
 }
