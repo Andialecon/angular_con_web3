@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { MenuComponent } from './menu/menu.component';
+import { AuthRoutingModule } from './auth/auth-routing.module';
 
 
 
@@ -18,7 +19,8 @@ import { MenuComponent } from './menu/menu.component';
   ],
   imports: [
     CommonModule,
-    PrimeNgModule
+    PrimeNgModule,
+    AuthRoutingModule
   ],
   exports: [
     NavbarComponent,

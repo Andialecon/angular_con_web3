@@ -38,7 +38,8 @@ export class MenuComponent implements OnInit {
       },
       {
         label: 'Logout',
-        icon: 'pi pi-fw pi-sign-out'
+        icon: 'pi pi-fw pi-sign-out',
+        routerLink:'/'
       }
     ];
   }

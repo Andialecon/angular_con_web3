@@ -1,0 +1,11 @@
+.content-home {
+    background-image: url("../../../assets/images/set_Cryptomillionary2.jpg");
+    height: 100vh;
+    background-size: cover;
+}
+
+.cover {
+    background-color: #000000c2;
+    height: 100vh;
+    background-size: cover;
+}

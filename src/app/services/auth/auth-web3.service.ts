@@ -10,6 +10,7 @@ import Swal from 'sweetalert';
 import { User } from 'src/app/interfaces/Users';
 import { RestAuth } from '../../interfaces/ResAuht';
 import { LoadingService } from '../loader.service';
+import { RouterLink } from '@angular/router';
  
 declare let window: any;
 
@@ -192,6 +193,7 @@ export class AuthWeb3Service {
         localStorage.setItem("role", res.role);
         this.loadingService.changeState(false);
         this.loginUser.next(true);
+        RouterLink:('home');
 
       }else{
         this.loadingService.changeState(false);
