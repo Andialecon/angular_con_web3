@@ -8,8 +8,6 @@ import { MenuComponent } from './menu/menu.component';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 
 
-
-
 @NgModule({
   declarations: [
     AuthComponent,

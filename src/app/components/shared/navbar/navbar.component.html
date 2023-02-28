@@ -1,12 +1,19 @@
 <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" style="font-family: 'Faster One', cursive; color: #c5b613;" href="#">Cryptomillionary</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div style="margin: auto; font-size: larger;"><b>Contract: </b>&nbsp;<span><a href="">0xE200A4A980618Be6f2077c9dC5b8822B0BB46FC8</a> <i ng-click="copy()" class="pi pi-copy" style="margin: 0 10px;cursor: pointer;"></i></span></div>
-        <app-auth></app-auth>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" style="font-family: 'Faster One', cursive; color: #c5b613;" href="#">Cryptomillionary</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <div style="margin: auto; font-size: larger;"><b>Contract:</b> &nbsp; <input type="text" id="contractInput"
+          value="{{contract}}" style="color: white; background-color: transparent; border: none; text-decoration: none;"
+          readonly> <i (click)="copy()" class="pi pi-copy" style="margin: 0 10px;cursor: pointer;"></i> </div>
+
+      <app-auth></app-auth>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<p-toast position="bottom-left"></p-toast>
