@@ -8,8 +8,8 @@
     white-space: nowrap;
 }
 .navbar{
-    background-color:  #121010f0 !important;
-    color: white !important;
+    background-color:  white !important;
+    color: black !important;
     box-shadow: rgb(0 0 0 / 19%) 0px 10px 20px, rgb(0 0 0 / 23%) 0px 6px 6px;
 }
 
@@ -35,8 +35,8 @@
     font-size: var(--bs-navbar-toggler-font-size);
     line-height: 1;
     color: var(--bs-navbar-color);
-    background-color: #00e117;
-    border: var(--bs-border-width) solid var(--bs-navbar-toggler-border-color);
+    background-color: transparent;
+    border:var(--bs-border-width) solid rgb(0 0 0);
     border-radius: var(--bs-navbar-toggler-border-radius);
     transition: var(--bs-navbar-toggler-transition);
 }

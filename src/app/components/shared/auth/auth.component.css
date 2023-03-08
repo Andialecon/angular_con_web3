@@ -1,0 +1,10 @@
+.btnConect{
+    background-color: white !important;
+    color: black;
+    font-family: fantasy;
+}
+.btnConect:hover{
+    background-color: black !important;
+    color: white;
+    font-family: fantasy;
+}
