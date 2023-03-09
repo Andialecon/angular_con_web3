@@ -1,0 +1,12 @@
+.btnStart{
+    border-radius: black;
+    color: black;
+    background-color: white;
+    font-family: fantasy;
+    border: solid black 2px;
+}
+
+.btnStart:hover{
+    background-color: black;
+    color:white;
+}
