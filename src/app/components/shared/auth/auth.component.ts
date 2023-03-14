@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthWeb3Service } from 'src/app/services/auth/auth-web3.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -20,6 +21,10 @@ export class AuthComponent implements OnInit {
 
   connect(){
     this.authWeb3Service.connect();
+  }
+
+  logout(){
+    this.authWeb3Service.logout();
   }
   
   ngOnInit(): void {

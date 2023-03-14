@@ -1,0 +1,14 @@
+<p-sidebar [(visible)]="display">
+    <a [routerLink]="['/game/home']" routerLinkActive="router-link-active"  class="linkStyle" (click)="display = false"> <span class="sidebar-item"><i class="pi pi-fw pi pi-fw pi-home"></i>&nbsp; Home</span> </a> 
+    <a [routerLink]="['/game/mygames']" routerLinkActive="router-link-active" class="linkStyle" (click)="display = false"> <span class="sidebar-item"><i class="pi pi-fw pi pi-fw pi-desktop"></i>&nbsp; My Games</span> </a>
+    <span class="sidebar-item"><i class="pi pi-fw pi-sitemap"></i>&nbsp; My Network</span>  
+    <span class="sidebar-item"><i class="pi pi-fw pi-wallet"></i>&nbsp; My Wallet</span>  
+    <span class="sidebar-item"><i class="pi pi-fw pi pi-id-card"></i>&nbsp; My Nfts</span>  
+    <span class="sidebar-item"><i class="pi pi-fw pi-shopping-cart"></i>&nbsp; Marketplace</span>  
+    <!-- <button pButton type="button" label="New Game" ></button> -->
+</p-sidebar>
+
+<div class="dashboard-container" style="display: flex; align-items: center; justify-content: space-between;">    
+    <p-button type="text" (click)="display = true" icon="pi pi-bars" label="Menu"></p-button> 
+    <span style="color:white; font-weight: bolder;">CTM<i class="pi pi-fw pi pi-dollar"></i>{{saldo}}</span>
+</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { handleSignature } from './validate';
 import { environment } from '../../../environments/environment';
@@ -10,7 +10,8 @@ import Swal from 'sweetalert';
 import { User } from 'src/app/interfaces/Users';
 import { RestAuth } from '../../interfaces/ResAuht';
 import { LoadingService } from '../loader.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
  
 declare let window: any;
 
@@ -22,11 +23,11 @@ export class AuthWeb3Service {
   web3: any = null;
   get web3Instance() { return this.web3; }
 
-  chainId: string = '0x1';
+  chainId: string = '0x89';
   addressUser: any = new BehaviorSubject<string>('');
   loginUser: any = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly http: HttpClient, private loadingService:LoadingService) {
+  constructor(private readonly http: HttpClient, private loadingService:LoadingService, private router: Router) {
     if (typeof window.ethereum !== 'undefined') {
       this.web3 = new Web3(window.ethereum);
     } else {
@@ -57,7 +58,7 @@ export class AuthWeb3Service {
       this.conectAccount();
     } else {
       this.loadingService.changeState(false);
-      Swal("Error de Red!", "Seleciona la red principal de Etherreum! (Mainet)", "error");
+      Swal("Error de Red!", "Seleciona la red principal de Polygon!", "error");
     }
 
     window.ethereum.on('chainChanged', (res: string) => {
@@ -193,11 +194,11 @@ export class AuthWeb3Service {
         localStorage.setItem("role", res.role);
         this.loadingService.changeState(false);
         this.loginUser.next(true);
-        RouterLink:('home');
+        this.router.navigate(['./game']);
 
       }else{
         this.loadingService.changeState(false);
-        Swal("Oops!", `Could not log in, please try again later`, "error");
+        Swal("Oops!", `Could not loggin, please try again later`, "error");
       }
     
     } catch (error:any) {
@@ -209,8 +210,20 @@ export class AuthWeb3Service {
 
   }
 
+  verifyAccessToken():boolean {
+    if( localStorage.getItem('token') ){
+      
+      this.loginUser.next(true);
+      this.addressUser.next(localStorage.getItem('user'));
+      return true;
+      
+    }
+    return false;
+  }
+
   logout() {
     this.loginUser.next(false);
+    this.router.navigate(['./login']);
   }
 
 }

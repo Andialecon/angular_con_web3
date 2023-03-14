@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-home.component.css']
 })
 export class GameHomeComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit(): void {

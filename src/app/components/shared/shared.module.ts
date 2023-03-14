@@ -4,8 +4,9 @@ import { AuthComponent } from './auth/auth.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
-import { MenuComponent } from './menu/menu.component';
-import { AuthRoutingModule } from './auth/auth-routing.module';
+import { GameRoutingModule } from '../game-home/game-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -13,18 +14,18 @@ import { AuthRoutingModule } from './auth/auth-routing.module';
     AuthComponent,
     NavbarComponent,
     LoaderComponent,
-    MenuComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,
     PrimeNgModule,
-    AuthRoutingModule
+    GameRoutingModule
   ],
   exports: [
     NavbarComponent,
     LoaderComponent,
     PrimeNgModule,
-    MenuComponent
+    DashboardComponent
   ]
 })
 export class SharedModule { }

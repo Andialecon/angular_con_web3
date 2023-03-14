@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { GameHomeComponent } from '../../game-home/game-home.component';
-import { LoginComponent } from '../../login/login.component';
+import { GameHomeComponent } from './game-home.component';
+import { MyGamesComponent } from './my-games/my-games.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
     path: '',
+    component:GameHomeComponent,
     children:[
       {
         path:'home',
-        component: GameHomeComponent
+        component:HomeComponent
       },
       {
-        path:'login',
-        component:LoginComponent
+        path:'mygames',
+        component:MyGamesComponent
       },
       {
         path:'**',
-        redirectTo:'login'
+        redirectTo:'home'
       }
 
     ]
@@ -35,4 +37,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AuthRoutingModule { }
+export class GameRoutingModule { }

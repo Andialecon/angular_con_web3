@@ -1,0 +1,10 @@
+.boxFormat{
+    border-radius: 15px;
+    box-shadow: bisque;
+    -webkit-box-shadow: 10px 10px 23px 0px rgba(247,230,247,1);
+    -moz-box-shadow: 10px 10px 23px 0px rgba(247,230,247,1);
+    /* box-shadow: 10px 10px 23px 0px rgba(247,230,247,1); */
+    -webkit-box-shadow: 10px 10px 23px -12px rgb(106 103 103);
+    -moz-box-shadow: 10px 10px 23px -12px rgb(106 103 103);
+    box-shadow: 10px 10px 23px -12px rgb(106 103 103);
+}

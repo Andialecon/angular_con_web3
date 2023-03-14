@@ -1,0 +1,27 @@
+.dashboard-container{
+    width: auto;
+    height: auto;
+    background-color: #ffffff38;
+    color: #0e0d0d;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.sidebar-item{
+    display: block;
+    background-color: #00000061;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.sidebar-item:hover{
+    transform: scale(1.1);
+}
+
+.linkStyle{
+    text-decoration: none;
+}

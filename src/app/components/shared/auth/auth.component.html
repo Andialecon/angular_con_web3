@@ -1,2 +1,5 @@
 <button class="btn btn-dark btnConect" style="background-color: black;" *ngIf="!loginUser" (click)="connect()">Conect</button>
-<h1 *ngIf="loginUser" style="margin: 15px; font-size: small; color: #060606; font-weight: 500; border:  solid 1px; padding: 5px; border-radius: 21px;" >{{addressUser}}</h1>
+<div *ngIf="loginUser" style="display: flex; align-items: center;">
+    <h1 style="margin: 15px; font-size: small; color: #060606; font-weight: 500; border:  solid 1px; padding: 5px; border-radius: 21px;" >{{addressUser}}</h1>
+    <button class="btn btn-outline-dark" (click)="logout()" style="height: min-content;"><i class="pi pi-fw pi-sign-out"></i></button>
+</div>
